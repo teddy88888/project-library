@@ -1,31 +1,22 @@
-import { Card, CardContent, CardFooter } from "@/components/ui/card";
+import { Link } from "react-router-dom";
 import { Star } from "lucide-react";
+import type { Book } from "@/types";
+import { Card } from "./ui/Card";
 
-interface BookProps {
-  title: string;
-  author: string;
-  rating: number;
-  image: string;
-}
-
-export const BookCard = ({ title, author, rating, image }: BookProps) => {
+export function BookCard({ book }: { book: Book }) {
   return (
-    <Card className="overflow-hidden border-none shadow-sm hover:shadow-md transition-shadow cursor-pointer">
-      <CardContent className="p-0">
-        <img
-          src={image}
-          alt={title}
-          className="w-full h-48 object-cover rounded-t-lg"
-        />
-        <div className="p-3 space-y-1">
-          <h3 className="font-bold text-sm truncate">{title}</h3>
-          <p className="text-xs text-muted-foreground">{author}</p>
+    <Link to={`/books/${book.id}`} className="group block">
+      <Card className="overflow-hidden border border-gray-100 transition group-hover:-translate-y-1">
+        <img src={book.coverUrl} alt={book.title} className="aspect-[0.68] w-full object-cover" />
+        <div className="p-4">
+          <h3 className="truncate font-semibold">{book.title}</h3>
+          <p className="mt-1 truncate text-sm text-gray-500">{book.author}</p>
+          <div className="mt-2 flex items-center gap-1 text-sm">
+            <Star className="size-4 fill-amber-400 text-amber-400" />
+            <span>{book.rating.toFixed(1)}</span>
+          </div>
         </div>
-      </CardContent>
-      <CardFooter className="p-3 pt-0 flex items-center gap-1">
-        <Star className="w-3 h-3 fill-yellow-400 text-yellow-400" />
-        <span className="text-xs font-medium">{rating}</span>
-      </CardFooter>
-    </Card>
+      </Card>
+    </Link>
   );
-};
+}
