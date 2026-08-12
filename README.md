@@ -1,73 +1,54 @@
-# React + TypeScript + Vite
+# Booky Library Web — MVP Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Frontend project based on **Library Web – MVP Guide (Frontend)**.
 
-Currently, two official plugins are available:
+## Stack
+- React + TypeScript
+- Tailwind CSS
+- shadcn/ui-style components
+- Redux Toolkit
+- TanStack Query
+- Optimistic UI for borrowing
+- Day.js
+- Sonner toast feedback
+- React Router
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Pages
+- `/login`
+- `/register`
+- `/` Home / recommendations
+- `/books` Book List + category/rating filters + search
+- `/books/:id` Book Detail + stock + reviews + borrow
+- `/loans` My Loans
+- `/profile` My Profile + loan statistics
+- `/admin` Admin placeholder
 
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Run
+```bash
+npm install
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## API connection
+Copy `.env.example` to `.env` and set `VITE_API_BASE_URL` to the backend base URL from the Swagger/OpenAPI documentation.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+The exact Swagger endpoint/response schema was not included in the provided MVP PDF, so `src/lib/api.ts` isolates the endpoint adapter. The app is runnable with `VITE_USE_MOCK=true` and can be switched to the real API after mapping the Swagger routes/response fields.
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+Expected high-level backend operations:
+- login/register
+- books list/detail
+- borrow
+- loans
+- add/delete review
+- profile update
+
+## UX requirements covered
+- loading and error states
+- toast feedback
+- responsive Tailwind layout
+- token attached to authenticated API requests
+- optimistic stock update on borrow
+- formatted loan dates with Day.js
+
+## Visual assets
+The supplied Booky reference screenshot was used to crop the hero and sample cover artwork into `public/assets/`. Replace these with production assets when the final design assets are available.
